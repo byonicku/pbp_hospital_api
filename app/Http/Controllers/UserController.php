@@ -204,6 +204,38 @@ class UserController extends Controller
         }
     }
 
+    public function updatePass(Request $request){
+        $userToUpdate = User::where("username", $request->username)->first();
+
+        if(!is_null($userToUpdate)){
+            if($userToUpdate->password != $request->passwordLama){
+                return response()->json([
+                    "status"=> false,
+                    "message"=> "Password Lama Tidak Sesuai"
+                ], 400);
+            }
+
+            $result = DB::table("users")->where("id_user", $userToUpdate->id_user)->update(["password" => $request->passwordBaru]);
+
+            if ($result > 0){
+                return response()->json([
+                    "status"=> true,
+                    "message"=> "Berhasil Update Password",
+                ], 200);
+            }
+
+            return response()->json([
+                "status"=> false,
+                "message"=> "Gagal Update Password"
+            ], 400);
+        }
+
+        return response()->json([
+            "status"=> false,
+            "message"=> "Username Tidak Ditemukan"
+        ], 400);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
