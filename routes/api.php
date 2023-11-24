@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DaftarPeriksaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('user', UserController::class);
+Route::post('user/login', [UserController::class, 'login'])->name('login'); // untuk login
+
+Route::apiResource('daftar_periksa', DaftarPeriksaController::class);
