@@ -42,11 +42,11 @@ class UserController extends Controller
         try {
 
             $newUser = $request->all();
-    
+
             $validate = Validator::make($newUser, [
                 "email" => 'unique:users'
             ]);
-    
+
             if ($validate->fails()) {
                 return response()->json([
                     'status'=> false,
@@ -55,7 +55,7 @@ class UserController extends Controller
             }
 
             $newUser["profile_photo"] = "";
-    
+
             $user = User::create($newUser);
 
             return response()->json([
@@ -154,7 +154,7 @@ class UserController extends Controller
                 $userUpdate = $request->all();
 
                 $validate = Validator::make($userUpdate, [
-                    'email'=> Rule::unique('users')->where("id_user", "<>", $id),
+                    'email'=> 'required|email|unique:users',
                 ]);
 
                 if ($validate->fails()) {
@@ -189,11 +189,6 @@ class UserController extends Controller
                     'status'=> false,
                     'message'=> 'Gagal Update Data User'
                 ], 400);
-
-                return response()->json([
-                    'status'=> true,
-                    'message'=> 'Berhasil Update Data User'
-                ], 200);
             } else {
                 return response()->json([
                     'status'=> false,

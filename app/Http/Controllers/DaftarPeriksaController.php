@@ -71,10 +71,10 @@ class DaftarPeriksaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         try {
-            $findDaftarPeriksa = DaftarPeriksa::where("id_daftar_periksa", $id)->first();
+            $findDaftarPeriksa = DaftarPeriksa::find($request->id_daftar_periksa);
 
             if(is_null($findDaftarPeriksa)) {
                 return response()->json([
@@ -84,7 +84,6 @@ class DaftarPeriksaController extends Controller
             }
 
             $daftarPeriksaUpdate = $request->all();
-
             $findDaftarPeriksa->update($daftarPeriksaUpdate);
 
             return response()->json([
