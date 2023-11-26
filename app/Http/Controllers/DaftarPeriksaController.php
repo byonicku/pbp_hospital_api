@@ -99,6 +99,37 @@ class DaftarPeriksaController extends Controller
         }
     }
 
+    public function updateStatus(Request $request)
+    {
+        try {
+            $findDaftarPeriksa = DaftarPeriksa::find($request->id);
+
+            if(is_null($findDaftarPeriksa)) {
+                return response()->json([
+                    "status"=> false,
+                    "message"=> "Daftar Periksa Tidak Ditemukan"
+                ], 400);
+            }
+
+            $daftarPeriksaUpdate = $request->all();
+            $daftarPeriksaUpdate = [
+                "status_checkin" => 1
+            ];
+            $findDaftarPeriksa->update($daftarPeriksaUpdate);
+
+            return response()->json([
+                "status"=> true,
+                "message"=> "Berhasil Update Daftar Periksa",
+                "data"=> $daftarPeriksaUpdate
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "status"=> false,
+                "message"=> $e->getMessage()
+            ], 400);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */

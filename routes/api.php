@@ -23,5 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('user', UserController::class);
 Route::post('user/login', [UserController::class, 'login'])->name('login'); // untuk login
 Route::post('user/updatePass', [UserController::class, 'updatePass'])->name('updatePass');
+Route::post('user/updatePfp', [UserController::class, 'updatePfp'])->name('updatePfp');
 
 Route::apiResource('daftar_periksa', DaftarPeriksaController::class);
+Route::post('daftar_periksa/updateStatus', [DaftarPeriksaController::class, 'updateStatus'])->name('updateStatus');

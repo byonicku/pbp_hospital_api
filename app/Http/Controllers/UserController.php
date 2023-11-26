@@ -204,6 +204,44 @@ class UserController extends Controller
         }
     }
 
+    public function updatePfp(Request $request)
+    {
+        try {
+            $user = User::where('id_user', $request->id)->first();
+
+            if(!is_null($user)) {
+                $userUpdate = $request->all();
+
+                $result = DB::table('users')->where('id_user', $request->id)->update([
+                    "profile_photo" => $userUpdate["profile_photo"],
+                ]);
+
+                if ($result > 0) {
+                    return response()->json([
+                        'status'=> true,
+                        'message'=> 'Berhasil Update Photo Profil User'
+                    ], 200);
+                }
+
+                return response()->json([
+                    'status'=> false,
+                    'message'=> 'Gagal Update Photo Profil User'
+                ], 400);
+            } else {
+                return response()->json([
+                    'status'=> false,
+                    'message'=> 'User Tidak Ditemukan'
+                ], 400);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'status'=> false,
+                'message'=> $e->getMessage(),
+                'data'=> []
+            ], 400);
+        }
+    }
+
     public function updatePass(Request $request){
         $userToUpdate = User::where("username", $request->username)->first();
 
