@@ -63,12 +63,12 @@ class DaftarPeriksaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show($id)
     {
         //
         try {
-            $daftarPeriksa = DaftarPeriksa::find($request->id);
-
+            $daftarPeriksa = DaftarPeriksa::find($id);
+            print($id);
             if(!is_null($daftarPeriksa)){
                 return response()->json([
                     "status" => true,
