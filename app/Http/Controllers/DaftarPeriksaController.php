@@ -68,7 +68,7 @@ class DaftarPeriksaController extends Controller
         //
         try {
             $daftarPeriksa = DaftarPeriksa::find($id);
-            print($id);
+
             if(!is_null($daftarPeriksa)){
                 return response()->json([
                     "status" => true,
