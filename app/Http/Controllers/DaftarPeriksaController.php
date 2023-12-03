@@ -63,9 +63,30 @@ class DaftarPeriksaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DaftarPeriksa $daftarPeriksa)
+    public function show(DaftarPeriksa $daftarPeriksa, $request)
     {
         //
+        try {
+            $daftarPeriksa = DaftarPeriksa::find($request->id);
+
+            if(!is_null($daftarPeriksa)){
+                return response()->json([
+                    "status" => true,
+                    "message" => "Berhasil Mengambil Data Daftar Periksa",
+                    "data"=> $daftarPeriksa
+                ], 200);
+            }
+
+            return response()->json([
+                "status"=> true,
+                "message"=> "Daftar Periksa Kosong"
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 400);
+        }
     }
 
     /**
