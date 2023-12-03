@@ -63,7 +63,7 @@ class DaftarPeriksaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DaftarPeriksa $daftarPeriksa, $request)
+    public function show(Request $request)
     {
         //
         try {
