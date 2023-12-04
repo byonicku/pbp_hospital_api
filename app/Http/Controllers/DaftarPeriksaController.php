@@ -132,7 +132,7 @@ class DaftarPeriksaController extends Controller
                 ], 400);
             }
 
-            $daftarPeriksaUpdate = $request->all();
+            $daftarPeriksaUpdate = $findDaftarPeriksa;
             $daftarPeriksaUpdate = [
                 "status_checkin" => 1
             ];
