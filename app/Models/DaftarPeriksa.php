@@ -20,6 +20,8 @@ class DaftarPeriksa extends Model
         'gambar_dokter',
         'ruangan',
         'status_checkin',
-        'id_user'
+        'id_user',
+        'rating',
+        'ulasan',
     ];
 }
