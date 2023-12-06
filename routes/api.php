@@ -28,4 +28,5 @@ Route::post('user/updatePfp', [UserController::class, 'updatePfp'])->name('updat
 
 Route::apiResource('daftar_periksa', DaftarPeriksaController::class);
 Route::post('daftar_periksa/updateStatus', [DaftarPeriksaController::class, 'updateStatus'])->name('updateStatus');
-Route::post('updateRatingUlasan', [DaftarPeriksaController::class,'updateRatingUlasan'])->name('updateRatingUlasan'); // update rating dan ulasan di id daftar periksa tertentu
+Route::post('daftar_periksa/updateRatingUlasan', [DaftarPeriksaController::class,'updateRatingUlasan'])->name('updateRatingUlasan'); // update rating dan ulasan di id daftar periksa tertentu
+Route::put('daftar_periksa/hapusUlasan/{id}', [DaftarPeriksaController::class, 'hapusUlasan'])->name('hapusUlasan'); // update kolom ulasan untuk menghapus ulasan/komentar

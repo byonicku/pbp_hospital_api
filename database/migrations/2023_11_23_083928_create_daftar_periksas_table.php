@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('ruangan');
             $table->integer('price');
             $table->integer('status_checkin');
-            $table->integer('rating');
+            $table->double('rating');
             $table->string('ulasan');
             $table->foreignId('id_user')->nullable()->constrained('users', 'id_user')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

@@ -184,6 +184,38 @@ class DaftarPeriksaController extends Controller
         }
     }
 
+    public function hapusUlasan($id) {
+        try {
+            $findDaftarPeriksa = DB::table('daftar_periksas')->where('id_daftar_periksa', $id)->first();
+
+            if(is_null($findDaftarPeriksa)) {
+                return response()->json([
+                    'status'=> false,
+                    'message'=> 'Daftar Periksa tidak ditemukan',
+                ], 400);
+            }
+
+            $deleted = DB::table('daftar_periksas')->where('id_daftar_periksa', $id)->update(['ulasan' => '-']);
+
+            if($deleted > 0) {
+                return response()->json([
+                    'status'=> true,
+                    'message'=> 'Berhasil Menghapus Komentar'
+                ], 200);
+            }
+
+            return response()->json([
+                'status'=> false,
+                'message'=> 'Gagal Menghapus Komentar',
+            ], 400);
+        } catch (Exception $e) {
+            return response()->json([
+                'status'=> false,
+                'message'=> $e->getMessage()
+            ], 400);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */
