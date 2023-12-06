@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DaftarPeriksaController;
 use App\Http\Controllers\UserController;
+use App\Models\DaftarPeriksa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,4 @@ Route::post('user/updatePfp', [UserController::class, 'updatePfp'])->name('updat
 
 Route::apiResource('daftar_periksa', DaftarPeriksaController::class);
 Route::post('daftar_periksa/updateStatus', [DaftarPeriksaController::class, 'updateStatus'])->name('updateStatus');
+Route::post('updateRatingUlasan', [DaftarPeriksaController::class,'updateRatingUlasan'])->name('updateRatingUlasan'); // update rating dan ulasan di id daftar periksa tertentu

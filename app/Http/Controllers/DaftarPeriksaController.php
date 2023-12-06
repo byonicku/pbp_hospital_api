@@ -6,6 +6,7 @@ use App\Models\DaftarPeriksa;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class DaftarPeriksaController extends Controller
 {
@@ -142,6 +143,38 @@ class DaftarPeriksaController extends Controller
                 "status"=> true,
                 "message"=> "Berhasil Update Daftar Periksa",
                 "data"=> $daftarPeriksaUpdate
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "status"=> false,
+                "message"=> $e->getMessage()
+            ], 400);
+        }
+    }
+
+    public function updateRatingUlasan(Request $request){
+        try {
+            $findDaftarPeriksa = DB::table('daftar_periksas')->where('id_daftar_periksa', $request->id_daftar_periksa )->first();
+            // $findDaftarPeriksa = DaftarPeriksa::find($request->id);
+
+            if(is_null($findDaftarPeriksa)) {
+                return response()->json([
+                    "status"=> false,
+                    "message"=> "Daftar Periksa Tidak Ditemukan"
+                ], 400);
+            }
+
+            $updated = DB::table('daftar_periksas')->where([
+                'id_daftar_periksa' => $request->id_daftar_periksa
+            ])->update([
+                'rating' => $request->rating,
+                'ulasan' => $request->ulasan
+            ]);
+
+            return response()->json([
+                "status"=> true,
+                "message"=> "Berhasil Update Rating dan Ulasan",
+                "data" => $updated
             ], 200);
         } catch (Exception $e) {
             return response()->json([
