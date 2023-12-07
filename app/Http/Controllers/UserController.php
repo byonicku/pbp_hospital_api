@@ -188,7 +188,7 @@ class UserController extends Controller
                     $userUpdate["profile_photo"] = $imageName;
 
                     if ($user->profile_photo !== null && file_exists(public_path($user->profile_photo))) {
-                        unlink(public_path($user->profile_photo));
+                        unlink(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo);
                     }
                 }
 
@@ -254,7 +254,7 @@ class UserController extends Controller
                     $userUpdate["profile_photo"] = $imageName;
 
                     if ($user->profile_photo !== null && file_exists(public_path($user->profile_photo))) {
-                        unlink(public_path($user->profile_photo));
+                        unlink(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo);
                     }
                 }
 
