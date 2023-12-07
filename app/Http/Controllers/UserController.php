@@ -183,7 +183,7 @@ class UserController extends Controller
                         unlink(Storage::disk('public')->path('user') . '/' . $user->profile_photo);
                     }
 
-                    Storage::disk('public')->put('user/' . $imageName, $imageFile);
+                    Storage::disk('public')->put('user' . $imageName, $imageFile);
 
                     $userUpdate["profile_photo"] = $imageName;
                 }
@@ -245,7 +245,7 @@ class UserController extends Controller
                         unlink(Storage::disk('public')->path('user') . '/' . $user->profile_photo);
                     }
 
-                    Storage::disk('public')->put('user/' . $imageName, $imageFile);
+                    Storage::disk('public')->put('user' . $imageName, $imageFile);
 
                     $userUpdate["profile_photo"] = $imageName;
                 }
