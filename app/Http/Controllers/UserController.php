@@ -179,7 +179,7 @@ class UserController extends Controller
                         mkdir(Storage::disk('public')->path('user'), 0777, true);
                     }
 
-                    if (file_exists(Storage::disk('public')->path('user') . '/' . $user->profile_photo)) {
+                    if (file_exists(Storage::disk('public')->path('user') . '/' . $user->profile_photo) && $user->profile_photo != "") {
                         unlink(Storage::disk('public')->path('user') . '/' . $user->profile_photo);
                     }
 
@@ -241,7 +241,7 @@ class UserController extends Controller
                         mkdir(Storage::disk('public')->path('user'), 0777, true);
                     }
 
-                    if (file_exists(Storage::disk('public')->path('user') . '/' . $user->profile_photo)) {
+                    if (file_exists(Storage::disk('public')->path('user') . '/' . $user->profile_photo) && $user->profile_photo != "") {
                         unlink(Storage::disk('public')->path('user') . '/' . $user->profile_photo);
                     }
 
