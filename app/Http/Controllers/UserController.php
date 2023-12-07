@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -154,7 +155,9 @@ class UserController extends Controller
                 $userUpdate = $request->all();
 
                 $validate = Validator::make($userUpdate, [
-                    'email'=> 'required|email|unique:users',
+                    'email'=> ['required', 'email',
+                        Rule::unique('users')->ignore($id, 'id_user'),
+                    ]
                 ]);
 
                 if ($validate->fails()) {
@@ -166,6 +169,27 @@ class UserController extends Controller
 
                 if(is_null($userUpdate["profile_photo"])){
                     $userUpdate["profile_photo"] = "";
+                }
+
+                if($request->has('profile_photo')){
+                    $imageName = time() . '-' . $user->username . '.jpg';
+                    $imageFile = base64_decode($request->profile_photo);
+
+                    if (!file_exists(Storage::disk('public')->path('\\user'))) {
+                        mkdir(public_path('\\user'), 0777, true);
+                    }
+
+                    if (file_exists(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo)) {
+                        unlink(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo);
+                    }
+
+                    Storage::disk('public')->put('\\user\\' . $imageName, $imageFile);
+
+                    $userUpdate["profile_photo"] = $imageName;
+
+                    if ($user->profile_photo !== null && file_exists(public_path($user->profile_photo))) {
+                        unlink(public_path($user->profile_photo));
+                    }
                 }
 
                 $result = DB::table('users')->where('id_user', $id)->update([
@@ -187,7 +211,8 @@ class UserController extends Controller
 
                 return response()->json([
                     'status'=> false,
-                    'message'=> 'Gagal Update Data User'
+                    'message'=> 'Gagal Update Data User',
+                    'result' => $result
                 ], 400);
             } else {
                 return response()->json([
@@ -211,6 +236,27 @@ class UserController extends Controller
 
             if(!is_null($user)) {
                 $userUpdate = $request->all();
+
+                if($request->has('profile_photo')){
+                    $imageName = time() . '-' . $user->username . '.jpg';
+                    $imageFile = base64_decode($request->profile_photo);
+
+                    if (!file_exists(Storage::disk('public')->path('\\user'))) {
+                        mkdir(public_path('\\user'), 0777, true);
+                    }
+
+                    if (file_exists(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo)) {
+                        unlink(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo);
+                    }
+
+                    Storage::disk('public')->put('\\user\\' . $imageName, $imageFile);
+
+                    $userUpdate["profile_photo"] = $imageName;
+
+                    if ($user->profile_photo !== null && file_exists(public_path($user->profile_photo))) {
+                        unlink(public_path($user->profile_photo));
+                    }
+                }
 
                 $result = DB::table('users')->where('id_user', $request->id)->update([
                     "profile_photo" => $userUpdate["profile_photo"],
@@ -281,6 +327,9 @@ class UserController extends Controller
     {
         try {
             $user = User::find($id);
+
+            unlink(public_path($user->profile_photo));
+
             if(!is_null($user)) {
                 $user->delete();
 
