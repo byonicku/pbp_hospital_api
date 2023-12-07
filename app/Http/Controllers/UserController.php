@@ -175,15 +175,15 @@ class UserController extends Controller
                     $imageName = time() . '-' . $user->username . '.jpg';
                     $imageFile = base64_decode($request->profile_photo);
 
-                    if (!file_exists(Storage::disk('public')->path('\\user'))) {
-                        mkdir(public_path('\\user'), 0777, true);
+                    if (!file_exists(Storage::disk('public')->path('user'))) {
+                        mkdir(Storage::disk('public')->path('user'), 0777, true);
                     }
 
-                    if (file_exists(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo)) {
-                        unlink(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo);
+                    if (file_exists(Storage::disk('public')->path('user') . '/' . $user->profile_photo)) {
+                        unlink(Storage::disk('public')->path('user') . '/' . $user->profile_photo);
                     }
 
-                    Storage::disk('public')->put('\\user\\' . $imageName, $imageFile);
+                    Storage::disk('public')->put('user/' . $imageName, $imageFile);
 
                     $userUpdate["profile_photo"] = $imageName;
                 }
@@ -237,15 +237,15 @@ class UserController extends Controller
                     $imageName = time() . '-' . $user->username . '.jpg';
                     $imageFile = base64_decode($request->profile_photo);
 
-                    if (!file_exists(Storage::disk('public')->path('\\user'))) {
-                        mkdir(public_path('\\user'), 0777, true);
+                    if (!file_exists(Storage::disk('public')->path('user'))) {
+                        mkdir(Storage::disk('public')->path('user'), 0777, true);
                     }
 
-                    if (file_exists(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo)) {
-                        unlink(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo);
+                    if (file_exists(Storage::disk('public')->path('user') . '/' . $user->profile_photo)) {
+                        unlink(Storage::disk('public')->path('user') . '/' . $user->profile_photo);
                     }
 
-                    Storage::disk('public')->put('\\user\\' . $imageName, $imageFile);
+                    Storage::disk('public')->put('user/' . $imageName, $imageFile);
 
                     $userUpdate["profile_photo"] = $imageName;
                 }
