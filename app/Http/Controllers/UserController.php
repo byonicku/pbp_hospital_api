@@ -186,10 +186,6 @@ class UserController extends Controller
                     Storage::disk('public')->put('\\user\\' . $imageName, $imageFile);
 
                     $userUpdate["profile_photo"] = $imageName;
-
-                    if ($user->profile_photo !== null && file_exists(public_path($user->profile_photo))) {
-                        unlink(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo);
-                    }
                 }
 
                 $result = DB::table('users')->where('id_user', $id)->update([
@@ -252,10 +248,6 @@ class UserController extends Controller
                     Storage::disk('public')->put('\\user\\' . $imageName, $imageFile);
 
                     $userUpdate["profile_photo"] = $imageName;
-
-                    if ($user->profile_photo !== null && file_exists(public_path($user->profile_photo))) {
-                        unlink(Storage::disk('public')->path('\\user') . '\\' . $user->profile_photo);
-                    }
                 }
 
                 $result = DB::table('users')->where('id_user', $request->id)->update([
