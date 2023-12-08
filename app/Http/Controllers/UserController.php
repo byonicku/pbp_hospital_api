@@ -156,7 +156,7 @@ class UserController extends Controller
 
                 $validate = Validator::make($userUpdate, [
                     'email'=> ['required', 'email',
-                        Rule::unique('users')->ignore($id, 'id_user'),
+                        Rule::unique('users')->ignore($user->id_user, 'id_user'),
                     ]
                 ]);
 
