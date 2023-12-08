@@ -190,7 +190,7 @@ class UserController extends Controller
 
                 return response()->json([
                     'status'=> false,
-                    'message'=> 'Gagal Update Data User',
+                    'message'=> 'Tidak ada yang perlu di-update',
                     'result' => $result
                 ], 400);
             } else {
