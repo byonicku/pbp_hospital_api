@@ -18,22 +18,22 @@ class DaftarPeriksaController extends Controller
         try {
             $daftarPeriksa = DaftarPeriksa::all();
 
-            if(!is_null($daftarPeriksa)){
+            if (!is_null($daftarPeriksa)) {
                 return response()->json([
                     "status" => true,
                     "message" => "Berhasil Mengambil Data Daftar Periksa",
-                    "data"=> $daftarPeriksa
+                    "data" => $daftarPeriksa
                 ], 200);
             }
 
             return response()->json([
-                "status"=> true,
-                "message"=> "Daftar Periksa Kosong"
+                "status" => true,
+                "message" => "Daftar Periksa Kosong"
             ], 200);
         } catch (Exception $e) {
             return response()->json([
                 "status" => false,
-                "message"=> $e->getMessage()
+                "message" => $e->getMessage()
             ], 400);
         }
     }
@@ -49,14 +49,14 @@ class DaftarPeriksaController extends Controller
             $daftarPeriksa = DaftarPeriksa::create($daftarperiksaNew);
 
             return response()->json([
-                "status"=> true,
-                "message"=> "Berhasil Menambah Daftar Periksa",
-                "data"=> $daftarPeriksa
+                "status" => true,
+                "message" => "Berhasil Menambah Daftar Periksa",
+                "data" => $daftarPeriksa
             ], 200);
         } catch (Exception $e) {
             return response()->json([
-                "status"=> false,
-                "message"=> $e->getMessage()
+                "status" => false,
+                "message" => $e->getMessage()
             ], 400);
         }
     }
@@ -70,22 +70,22 @@ class DaftarPeriksaController extends Controller
         try {
             $daftarPeriksa = DaftarPeriksa::find($id);
 
-            if(!is_null($daftarPeriksa)){
+            if (!is_null($daftarPeriksa)) {
                 return response()->json([
                     "status" => true,
                     "message" => "Berhasil Mengambil Data Daftar Periksa",
-                    "data"=> $daftarPeriksa
+                    "data" => $daftarPeriksa
                 ], 200);
             }
 
             return response()->json([
-                "status"=> true,
-                "message"=> "Daftar Periksa Kosong"
+                "status" => true,
+                "message" => "Daftar Periksa Kosong"
             ], 200);
         } catch (Exception $e) {
             return response()->json([
                 "status" => false,
-                "message"=> $e->getMessage()
+                "message" => $e->getMessage()
             ], 400);
         }
     }
@@ -98,10 +98,10 @@ class DaftarPeriksaController extends Controller
         try {
             $findDaftarPeriksa = DaftarPeriksa::find($request->id_daftar_periksa);
 
-            if(is_null($findDaftarPeriksa)) {
+            if (is_null($findDaftarPeriksa)) {
                 return response()->json([
-                    "status"=> false,
-                    "message"=> "Daftar Periksa Tidak Ditemukan"
+                    "status" => false,
+                    "message" => "Daftar Periksa Tidak Ditemukan"
                 ], 400);
             }
 
@@ -109,14 +109,14 @@ class DaftarPeriksaController extends Controller
             $findDaftarPeriksa->update($daftarPeriksaUpdate);
 
             return response()->json([
-                "status"=> true,
-                "message"=> "Berhasil Update Daftar Periksa",
-                "data"=> $daftarPeriksaUpdate
+                "status" => true,
+                "message" => "Berhasil Update Daftar Periksa",
+                "data" => $daftarPeriksaUpdate
             ], 200);
         } catch (Exception $e) {
             return response()->json([
-                "status"=> false,
-                "message"=> $e->getMessage()
+                "status" => false,
+                "message" => $e->getMessage()
             ], 400);
         }
     }
@@ -126,10 +126,10 @@ class DaftarPeriksaController extends Controller
         try {
             $findDaftarPeriksa = DaftarPeriksa::find($request->id);
 
-            if(is_null($findDaftarPeriksa)) {
+            if (is_null($findDaftarPeriksa)) {
                 return response()->json([
-                    "status"=> false,
-                    "message"=> "Daftar Periksa Tidak Ditemukan"
+                    "status" => false,
+                    "message" => "Daftar Periksa Tidak Ditemukan"
                 ], 400);
             }
 
@@ -140,78 +140,80 @@ class DaftarPeriksaController extends Controller
             $findDaftarPeriksa->update($daftarPeriksaUpdate);
 
             return response()->json([
-                "status"=> true,
-                "message"=> "Berhasil Update Daftar Periksa",
-                "data"=> $daftarPeriksaUpdate
+                "status" => true,
+                "message" => "Berhasil Update Daftar Periksa",
+                "data" => $daftarPeriksaUpdate
             ], 200);
         } catch (Exception $e) {
             return response()->json([
-                "status"=> false,
-                "message"=> $e->getMessage()
+                "status" => false,
+                "message" => $e->getMessage()
             ], 400);
         }
     }
 
-    public function updateRatingUlasan(Request $request){
+    public function updateRatingUlasan(Request $request)
+    {
         try {
-            $findDaftarPeriksa = DB::table('daftar_periksas')->where('id_daftar_periksa', $request->id_daftar_periksa )->first();
+            $findDaftarPeriksa = DB::table('daftar_periksas')->where('id_daftar_periksa', $request->id_daftar_periksa)->first();
             // $findDaftarPeriksa = DaftarPeriksa::find($request->id);
 
-            if(is_null($findDaftarPeriksa)) {
+            if (is_null($findDaftarPeriksa)) {
                 return response()->json([
-                    "status"=> false,
-                    "message"=> "Daftar Periksa Tidak Ditemukan"
+                    "status" => false,
+                    "message" => "Daftar Periksa Tidak Ditemukan"
                 ], 400);
             }
 
             $updated = DB::table('daftar_periksas')->where([
                 'id_daftar_periksa' => $request->id_daftar_periksa
             ])->update([
-                'rating' => $request->rating,
-                'ulasan' => $request->ulasan
-            ]);
+                        'rating' => $request->rating,
+                        'ulasan' => $request->ulasan
+                    ]);
 
             return response()->json([
-                "status"=> true,
-                "message"=> "Berhasil Update Rating dan Ulasan",
+                "status" => true,
+                "message" => "Berhasil Update Rating dan Ulasan",
                 "data" => $updated
             ], 200);
         } catch (Exception $e) {
             return response()->json([
-                "status"=> false,
-                "message"=> $e->getMessage()
+                "status" => false,
+                "message" => $e->getMessage()
             ], 400);
         }
     }
 
-    public function hapusUlasan($id) {
+    public function hapusUlasan($id)
+    {
         try {
             $findDaftarPeriksa = DB::table('daftar_periksas')->where('id_daftar_periksa', $id)->first();
 
-            if(is_null($findDaftarPeriksa)) {
+            if (is_null($findDaftarPeriksa)) {
                 return response()->json([
-                    'status'=> false,
-                    'message'=> 'Daftar Periksa tidak ditemukan',
+                    'status' => false,
+                    'message' => 'Daftar Periksa tidak ditemukan',
                 ], 400);
             }
 
             $deleted = DB::table('daftar_periksas')->where('id_daftar_periksa', $id)->update(['ulasan' => '-']);
 
-            if($deleted > 0) {
+            if ($deleted > 0) {
                 return response()->json([
-                    'status'=> true,
-                    'message'=> 'Berhasil Menghapus Komentar'
+                    'status' => true,
+                    'message' => 'Berhasil Menghapus Komentar'
                 ], 200);
             }
 
             return response()->json([
-                'status'=> false,
-                'message'=> 'Gagal Menghapus Komentar',
+                'status' => false,
+                'message' => 'Gagal Menghapus Komentar',
             ], 400);
         } catch (Exception $e) {
             return response()->json([
-                'status'=> false,
-                'message'=> $e->getMessage()
+                'status' => false,
+                'message' => $e->getMessage()
             ], 400);
         }
     }
@@ -224,24 +226,24 @@ class DaftarPeriksaController extends Controller
         try {
             $findDaftarPeriksa = DaftarPeriksa::where("id_daftar_periksa", $id)->first();
 
-            if(is_null($findDaftarPeriksa)) {
+            if (is_null($findDaftarPeriksa)) {
                 return response()->json([
-                    "status"=> false,
-                    "message"=> "Daftar Periksa Tidak Ditemukan"
+                    "status" => false,
+                    "message" => "Daftar Periksa Tidak Ditemukan"
                 ], 400);
             }
 
             $findDaftarPeriksa->delete();
 
             return response()->json([
-                "status"=> true,
-                "message"=> "Berhasil Menghapus Daftar Periksa",
+                "status" => true,
+                "message" => "Berhasil Menghapus Daftar Periksa",
                 "data" => $findDaftarPeriksa
             ], 200);
         } catch (Exception $e) {
             return response()->json([
-                "status"=> false,
-                "message"=> $e->getMessage()
+                "status" => false,
+                "message" => $e->getMessage()
             ], 400);
         }
     }
